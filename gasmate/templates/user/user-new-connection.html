@@ -1,0 +1,55 @@
+{{define "title"}}New Connection Request — GasMate{{end}}
+{{define "sidebar"}}
+  <a href="/user/book">Book Cylinder</a>
+  <a href="/user/orders">My Orders</a>
+  <a href="/user/accessories">Accessories</a>
+  <a href="/user/profile">Profile</a>
+  <a href="/user/new-connection" class="active">New Connection</a>
+  <a href="/user/change-location">Change Location</a>
+  <a href="/user/end-service">End Service</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">Request New Connection</h1>
+{{with .Data}}
+{{if .Success}}<div class="alert alert-success">Request submitted! Our team will contact you.</div>
+{{else}}
+{{if .Error}}<div class="alert alert-error">{{.Error}}</div>{{end}}
+<form method="POST" action="/user/new-connection" class="form-card">
+  <div class="form-row"><label>Name</label><input name="name" required></div>
+  <div class="form-row"><label>Address</label><textarea name="address" required></textarea></div>
+  <div class="form-row"><label>Phone</label><input name="phone" type="tel" required></div>
+  <div class="form-row">
+    <label>State</label>
+    <select name="state_id"
+            hx-get="/cities"
+            hx-target="#city-select"
+            hx-include="[name='state_id']"
+            hx-trigger="change">
+      <option value="">Select state&#8230;</option>
+      {{range .States}}
+      <option value="{{.ID}}">{{.Name}}</option>
+      {{end}}
+    </select>
+  </div>
+  <div class="form-row">
+    <label>City</label>
+    <select id="city-select" name="city_id" required>
+      <option value="">Select city&#8230;</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label>ID Proof Type</label>
+    <select name="id_proof_type" required>
+      <option value="Aadhaar">Aadhaar Card</option>
+      <option value="PAN">PAN Card</option>
+      <option value="Passport">Passport</option>
+      <option value="Voter ID">Voter ID</option>
+      <option value="Driving License">Driving License</option>
+    </select>
+  </div>
+  <div class="form-row"><label>ID Proof Number</label><input name="id_proof_number" required></div>
+  <button type="submit" class="btn btn-primary">Submit Request</button>
+</form>
+{{end}}
+{{end}}
+{{end}}

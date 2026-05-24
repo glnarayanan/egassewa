@@ -1,0 +1,13 @@
+{{define "title"}}Login — GasMate{{end}}
+{{define "content"}}
+<div class="auth-card">
+  <h1>Sign In</h1>
+  {{if .Error}}<div class="alert alert-error">{{.Error}}</div>{{end}}
+  <form method="POST" action="/login">
+    <div class="form-row"><label>Username</label><input name="username" required autofocus></div>
+    <div class="form-row"><label>Password</label><input name="password" type="password" required></div>
+    <button type="submit" class="btn btn-primary w-full">Login</button>
+  </form>
+  <p class="auth-alt">Don&#39;t have an account? <a href="/signup">Register here</a></p>
+</div>
+{{end}}

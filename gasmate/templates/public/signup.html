@@ -1,0 +1,45 @@
+{{define "title"}}Register — GasMate{{end}}
+{{define "content"}}
+<div class="auth-card">
+  <h1>Create Account</h1>
+  {{if .Error}}<div class="alert alert-error">{{.Error}}</div>{{end}}
+  <form method="POST" action="/signup">
+    <div class="form-row"><label>Username</label><input name="username" required autofocus></div>
+    <div class="form-row"><label>Email</label><input name="email" type="email" required></div>
+    <div class="form-row"><label>Password</label><input name="password" type="password" required minlength="8"></div>
+    <div class="form-row"><label>Phone</label><input name="phone" type="tel"></div>
+    <div class="form-row"><label>Address</label><textarea name="address"></textarea></div>
+    <div class="form-row">
+      <label>State</label>
+      <select name="state_id"
+              hx-get="/cities"
+              hx-target="#city-select"
+              hx-include="[name='state_id']"
+              hx-trigger="change">
+        <option value="">Select state&#8230;</option>
+        {{if .Data}}{{range .Data.States}}
+        <option value="{{.ID}}">{{.Name}}</option>
+        {{end}}{{end}}
+      </select>
+    </div>
+    <div class="form-row">
+      <label>City</label>
+      <select id="city-select" name="city_id" required
+              hx-get="/dealers"
+              hx-target="#dealer-select"
+              hx-include="[name='city_id']"
+              hx-trigger="change">
+        <option value="">Select city&#8230;</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Dealer</label>
+      <select id="dealer-select" name="dealer_id" required>
+        <option value="">Select dealer&#8230;</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary w-full">Register</button>
+  </form>
+  <p class="auth-alt">Already have an account? <a href="/login">Login</a></p>
+</div>
+{{end}}

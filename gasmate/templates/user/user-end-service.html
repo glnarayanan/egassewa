@@ -1,0 +1,26 @@
+{{define "title"}}End Service — GasMate{{end}}
+{{define "sidebar"}}
+  <a href="/user/book">Book Cylinder</a>
+  <a href="/user/orders">My Orders</a>
+  <a href="/user/accessories">Accessories</a>
+  <a href="/user/profile">Profile</a>
+  <a href="/user/new-connection">New Connection</a>
+  <a href="/user/change-location">Change Location</a>
+  <a href="/user/end-service" class="active">End Service</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">End Gas Service</h1>
+<div class="alert alert-error" style="margin-bottom:1.5rem">
+  Warning: Ending your service will terminate your gas connection. This action is irreversible once processed.
+</div>
+{{with .Data}}
+{{if .Success}}<div class="alert alert-success">End-service request submitted. Our team will process it shortly.</div>
+{{else}}
+{{if .Error}}<div class="alert alert-error">{{.Error}}</div>{{end}}
+<form method="POST" action="/user/end-service" class="form-card">
+  <div class="form-row"><label>Reason for ending service</label><textarea name="reason" rows="4" required></textarea></div>
+  <button type="submit" class="btn btn-danger">Submit End-Service Request</button>
+</form>
+{{end}}
+{{end}}
+{{end}}

@@ -1,0 +1,39 @@
+{{define "title"}}Accessories — Admin{{end}}
+{{define "sidebar"}}
+  <a href="/admin/cylinders">Cylinders</a>
+  <a href="/admin/accessories" class="active">Accessories</a>
+  <a href="/admin/dealers">Dealers</a>
+  <a href="/admin/customers">Customers</a>
+  <a href="/admin/cities">Cities</a>
+  <a href="/admin/requests">Requests</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">Accessories</h1>
+
+<form method="POST" action="/admin/accessories" class="inline-form">
+  <input name="name" placeholder="Name" required>
+  <input name="price" type="number" step="0.01" placeholder="Price (&#8377;)" required>
+  <input name="description" placeholder="Description">
+  <button type="submit" class="btn btn-primary btn-sm">Add</button>
+</form>
+
+<table class="table">
+  <thead><tr><th>Name</th><th>Price</th><th>Description</th><th></th></tr></thead>
+  <tbody>
+  {{range .Data}}
+  <tr id="acc-{{.ID}}">
+    <td>{{.Name}}</td>
+    <td>&#8377;{{printf "%.2f" .Price}}</td>
+    <td>{{.Description}}</td>
+    <td>
+      <button class="btn btn-sm btn-danger"
+              hx-delete="/admin/accessories/{{.ID}}"
+              hx-target="#acc-{{.ID}}"
+              hx-swap="outerHTML"
+              hx-confirm="Delete this accessory?">Delete</button>
+    </td>
+  </tr>
+  {{end}}
+  </tbody>
+</table>
+{{end}}

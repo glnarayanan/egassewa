@@ -1,0 +1,27 @@
+{{define "title"}}Customers — Admin{{end}}
+{{define "sidebar"}}
+  <a href="/admin/cylinders">Cylinders</a>
+  <a href="/admin/accessories">Accessories</a>
+  <a href="/admin/dealers">Dealers</a>
+  <a href="/admin/customers" class="active">Customers</a>
+  <a href="/admin/cities">Cities</a>
+  <a href="/admin/requests">Requests</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">Customers</h1>
+<table class="table">
+  <thead><tr><th>Name</th><th>Email</th><th>Connection #</th><th>City</th><th>Dealer</th><th>Phone</th></tr></thead>
+  <tbody>
+  {{range .Data}}
+  <tr>
+    <td>{{.Username}}</td>
+    <td>{{.Email}}</td>
+    <td>{{.GasConnectionNumber}}</td>
+    <td>{{.CityName}}</td>
+    <td>{{.DealerName}}</td>
+    <td>{{.Phone}}</td>
+  </tr>
+  {{end}}
+  </tbody>
+</table>
+{{end}}

@@ -1,0 +1,32 @@
+{{define "title"}}Cities — Admin{{end}}
+{{define "sidebar"}}
+  <a href="/admin/cylinders">Cylinders</a>
+  <a href="/admin/accessories">Accessories</a>
+  <a href="/admin/dealers">Dealers</a>
+  <a href="/admin/customers">Customers</a>
+  <a href="/admin/cities" class="active">Cities</a>
+  <a href="/admin/requests">Requests</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">Cities</h1>
+
+<form method="POST" action="/admin/cities" class="inline-form">
+  <input name="name" placeholder="City name" required>
+  <select name="state_id" required>
+    <option value="">Select state&#8230;</option>
+    {{range .Data.States}}
+    <option value="{{.ID}}">{{.Name}}</option>
+    {{end}}
+  </select>
+  <button type="submit" class="btn btn-primary btn-sm">Add</button>
+</form>
+
+<table class="table">
+  <thead><tr><th>City</th><th>State</th></tr></thead>
+  <tbody>
+  {{range .Data.Cities}}
+  <tr><td>{{.Name}}</td><td>{{.StateName}}</td></tr>
+  {{end}}
+  </tbody>
+</table>
+{{end}}

@@ -1,0 +1,74 @@
+{{define "base"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{block "title" .}}GasMate{{end}}</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="/static/js/htmx.min.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="logo">GasMate</a>
+    <nav>
+      <a href="/products">Products</a>
+      <a href="/apply">Apply Online</a>
+      <a href="/faq">FAQ</a>
+      <a href="/accessories">Accessories</a>
+      <a href="/contact">Contact</a>
+      <a href="/search-dealers">Search Dealers</a>
+      {{if .Session}}
+        {{if eq .Session.Role "customer"}}
+          <a href="/user/book" class="btn-nav">Dashboard</a>
+        {{else if eq .Session.Role "dealer"}}
+          <a href="/dealer/orders" class="btn-nav">Dashboard</a>
+        {{else if eq .Session.Role "admin"}}
+          <a href="/admin/cylinders" class="btn-nav">Admin</a>
+        {{end}}
+        <form method="POST" action="/logout" style="display:inline">
+          <button type="submit" class="btn-nav btn-outline">Logout</button>
+        </form>
+      {{else}}
+        <a href="/login" class="btn-nav">Login</a>
+      {{end}}
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  {{block "content" .}}{{end}}
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h4>Information</h4>
+      <ul>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/signup">Register</a></li>
+        <li><a href="/rules">Gas Rules</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Customer Service</h4>
+      <ul>
+        <li><a href="/contact">Contact Us</a></li>
+        <li><a href="/faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Extras</h4>
+      <ul>
+        <li><a href="/search-dealers">Find a Dealer</a></li>
+        <li><a href="/apply">New Connection</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <p>&copy; 2024 GasMate. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>
+{{end}}

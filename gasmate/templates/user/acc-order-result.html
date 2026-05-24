@@ -1,0 +1,7 @@
+{{define "acc-order-result.html"}}
+{{if .Success}}
+<div class="alert alert-success">{{.ItemName}} ordered successfully! Status: PENDING.</div>
+{{else if .Error}}
+<div class="alert alert-error">{{.Error}}</div>
+{{end}}
+{{end}}

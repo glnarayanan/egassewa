@@ -1,0 +1,30 @@
+{{define "title"}}Products — GasMate{{end}}
+{{define "content"}}
+<h1 class="page-title">Gas Cylinders</h1>
+
+<h2 class="section-subtitle">Domestic</h2>
+<div class="card-grid">
+  {{range .Data}}{{if eq .Type "domestic"}}
+  <div class="card">
+    <div class="card-badge domestic">Domestic</div>
+    <h3>{{.UnitKg}} kg Cylinder</h3>
+    <p class="card-desc">{{.Description}}</p>
+    <p class="card-price">&#8377;{{printf "%.2f" .Price}}</p>
+    <a href="/user/book" class="btn btn-sm">Book</a>
+  </div>
+  {{end}}{{end}}
+</div>
+
+<h2 class="section-subtitle">Commercial</h2>
+<div class="card-grid">
+  {{range .Data}}{{if eq .Type "commercial"}}
+  <div class="card">
+    <div class="card-badge commercial">Commercial</div>
+    <h3>{{.UnitKg}} kg Cylinder</h3>
+    <p class="card-desc">{{.Description}}</p>
+    <p class="card-price">&#8377;{{printf "%.2f" .Price}}</p>
+    <a href="/user/book" class="btn btn-sm">Book</a>
+  </div>
+  {{end}}{{end}}
+</div>
+{{end}}

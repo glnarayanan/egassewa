@@ -1,0 +1,21 @@
+{{define "title"}}Accessory Orders — GasMate{{end}}
+{{define "sidebar"}}
+  <a href="/dealer/orders">Cylinder Orders</a>
+  <a href="/dealer/accessories" class="active">Accessory Orders</a>
+  <a href="/dealer/customers">Customers</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">Accessory Orders</h1>
+{{if .Data}}
+<table class="table">
+  <thead><tr><th>Item</th><th>Customer</th><th>Qty</th><th>Ordered</th><th>Status</th><th>Actions</th></tr></thead>
+  <tbody>
+  {{range .Data}}
+  {{template "dealer-acc-row.html" .}}
+  {{end}}
+  </tbody>
+</table>
+{{else}}
+<div class="empty-state"><p>No pending accessory orders.</p></div>
+{{end}}
+{{end}}

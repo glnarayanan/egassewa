@@ -1,0 +1,21 @@
+{{define "dealer-results.html"}}
+{{if .}}
+<table class="table">
+  <thead><tr><th>Dealer ID</th><th>Name</th><th>City</th><th>State</th><th>Address</th><th>Phone</th></tr></thead>
+  <tbody>
+  {{range .}}
+  <tr>
+    <td>{{.DealershipID}}</td>
+    <td>{{.Username}}</td>
+    <td>{{.CityName}}</td>
+    <td>{{.StateName}}</td>
+    <td>{{.Address}}</td>
+    <td>{{.Phone}}</td>
+  </tr>
+  {{end}}
+  </tbody>
+</table>
+{{else}}
+<p class="text-muted">No dealers found in this city.</p>
+{{end}}
+{{end}}

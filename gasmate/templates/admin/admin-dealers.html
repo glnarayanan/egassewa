@@ -1,0 +1,60 @@
+{{define "title"}}Dealers — Admin{{end}}
+{{define "sidebar"}}
+  <a href="/admin/cylinders">Cylinders</a>
+  <a href="/admin/accessories">Accessories</a>
+  <a href="/admin/dealers" class="active">Dealers</a>
+  <a href="/admin/customers">Customers</a>
+  <a href="/admin/cities">Cities</a>
+  <a href="/admin/requests">Requests</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">Dealers</h1>
+
+<details class="form-card collapsible">
+  <summary>Add New Dealer</summary>
+  <form method="POST" action="/admin/dealers">
+    <div class="form-row"><label>Username</label><input name="username" required></div>
+    <div class="form-row"><label>Email</label><input name="email" type="email" required></div>
+    <div class="form-row"><label>Password</label><input name="password" type="password" required></div>
+    <div class="form-row"><label>Phone</label><input name="phone"></div>
+    <div class="form-row"><label>Address</label><textarea name="address"></textarea></div>
+    <div class="form-row">
+      <label>State</label>
+      <select name="state_id"
+              hx-get="/cities"
+              hx-target="#dealer-city-select"
+              hx-include="[name='state_id']"
+              hx-trigger="change">
+        <option value="">Select state&#8230;</option>
+        {{range .Data.States}}
+        <option value="{{.ID}}">{{.Name}}</option>
+        {{end}}
+      </select>
+    </div>
+    <div class="form-row">
+      <label>City</label>
+      <select id="dealer-city-select" name="city_id" required>
+        <option value="">Select city&#8230;</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Dealer</button>
+  </form>
+</details>
+
+<table class="table">
+  <thead><tr><th>Dealer ID</th><th>Name</th><th>Email</th><th>City</th><th>State</th><th>Address</th><th>Phone</th></tr></thead>
+  <tbody>
+  {{range .Data.Dealers}}
+  <tr>
+    <td>{{.DealershipID}}</td>
+    <td>{{.Username}}</td>
+    <td>{{.Email}}</td>
+    <td>{{.CityName}}</td>
+    <td>{{.StateName}}</td>
+    <td>{{.Address}}</td>
+    <td>{{.Phone}}</td>
+  </tr>
+  {{end}}
+  </tbody>
+</table>
+{{end}}

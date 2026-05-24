@@ -1,0 +1,91 @@
+{{define "title"}}Service Requests — Admin{{end}}
+{{define "sidebar"}}
+  <a href="/admin/cylinders">Cylinders</a>
+  <a href="/admin/accessories">Accessories</a>
+  <a href="/admin/dealers">Dealers</a>
+  <a href="/admin/customers">Customers</a>
+  <a href="/admin/cities">Cities</a>
+  <a href="/admin/requests" class="active">Requests</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">Service Requests</h1>
+
+<h2 class="section-subtitle">New Connection Requests</h2>
+{{if .Data.NewConnections}}
+<table class="table">
+  <thead><tr><th>Name</th><th>City</th><th>Phone</th><th>ID Proof</th><th>Submitted</th><th>Status</th><th>Action</th></tr></thead>
+  <tbody>
+  {{range .Data.NewConnections}}
+  <tr>
+    <td>{{.Name}}</td><td>{{.CityName}}</td><td>{{.Phone}}</td>
+    <td>{{.IDProofType}}: {{.IDProofNumber}}</td>
+    <td>{{.RequestedAt.Format "2006-01-02"}}</td>
+    <td><span class="status-badge">{{.Status}}</span></td>
+    <td>
+      <form method="POST" action="/admin/requests/new_connection_requests/{{.ID}}/status" style="display:flex;gap:.5rem">
+        <select name="status">
+          <option value="PENDING">Pending</option>
+          <option value="APPROVED">Approved</option>
+          <option value="REJECTED">Rejected</option>
+        </select>
+        <button type="submit" class="btn btn-sm btn-primary">Update</button>
+      </form>
+    </td>
+  </tr>
+  {{end}}
+  </tbody>
+</table>
+{{else}}<p class="text-muted">No new connection requests.</p>{{end}}
+
+<h2 class="section-subtitle">Location Change Requests</h2>
+{{if .Data.ChangeLocations}}
+<table class="table">
+  <thead><tr><th>Customer</th><th>New City</th><th>New Dealer</th><th>Submitted</th><th>Status</th><th>Action</th></tr></thead>
+  <tbody>
+  {{range .Data.ChangeLocations}}
+  <tr>
+    <td>{{.Username}}</td><td>{{.CityName}}</td><td>{{.DealerName}}</td>
+    <td>{{.RequestedAt.Format "2006-01-02"}}</td>
+    <td><span class="status-badge">{{.Status}}</span></td>
+    <td>
+      <form method="POST" action="/admin/requests/change_locations/{{.ID}}/status" style="display:flex;gap:.5rem">
+        <select name="status">
+          <option value="PENDING">Pending</option>
+          <option value="APPROVED">Approved</option>
+          <option value="REJECTED">Rejected</option>
+        </select>
+        <button type="submit" class="btn btn-sm btn-primary">Update</button>
+      </form>
+    </td>
+  </tr>
+  {{end}}
+  </tbody>
+</table>
+{{else}}<p class="text-muted">No location change requests.</p>{{end}}
+
+<h2 class="section-subtitle">End Service Requests</h2>
+{{if .Data.EndServices}}
+<table class="table">
+  <thead><tr><th>Customer</th><th>Reason</th><th>Submitted</th><th>Status</th><th>Action</th></tr></thead>
+  <tbody>
+  {{range .Data.EndServices}}
+  <tr>
+    <td>{{.Username}}</td><td>{{.Reason}}</td>
+    <td>{{.RequestedAt.Format "2006-01-02"}}</td>
+    <td><span class="status-badge">{{.Status}}</span></td>
+    <td>
+      <form method="POST" action="/admin/requests/end_services/{{.ID}}/status" style="display:flex;gap:.5rem">
+        <select name="status">
+          <option value="PENDING">Pending</option>
+          <option value="APPROVED">Approved</option>
+          <option value="REJECTED">Rejected</option>
+        </select>
+        <button type="submit" class="btn btn-sm btn-primary">Update</button>
+      </form>
+    </td>
+  </tr>
+  {{end}}
+  </tbody>
+</table>
+{{else}}<p class="text-muted">No end-service requests.</p>{{end}}
+{{end}}

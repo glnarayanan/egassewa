@@ -1,0 +1,42 @@
+{{define "title"}}GasMate — LPG Gas Agency{{end}}
+{{define "content"}}
+<section class="hero">
+  <h1>Your Trusted LPG Partner</h1>
+  <p>Order cylinders, browse accessories, and manage your gas connection — all in one place.</p>
+  <div class="hero-actions">
+    <a href="/user/book" class="btn btn-primary">Book a Cylinder</a>
+    <a href="/search-dealers" class="btn btn-outline">Find a Dealer</a>
+  </div>
+</section>
+
+{{with .Data}}
+<section class="section">
+  <h2>Our Cylinders</h2>
+  <div class="card-grid">
+    {{range .Cylinders}}
+    <div class="card">
+      <div class="card-badge {{.Type}}">{{.Type}}</div>
+      <h3>{{.UnitKg}} kg</h3>
+      <p class="card-desc">{{.Description}}</p>
+      <p class="card-price">&#8377;{{printf "%.2f" .Price}}</p>
+      <a href="/user/book" class="btn btn-sm">Book Now</a>
+    </div>
+    {{end}}
+  </div>
+</section>
+
+<section class="section">
+  <h2>Popular Accessories</h2>
+  <div class="card-grid">
+    {{range .Accessories}}
+    <div class="card">
+      <h3>{{.Name}}</h3>
+      <p class="card-desc">{{.Description}}</p>
+      <p class="card-price">&#8377;{{printf "%.2f" .Price}}</p>
+      <a href="/user/accessories" class="btn btn-sm btn-outline">Order</a>
+    </div>
+    {{end}}
+  </div>
+</section>
+{{end}}
+{{end}}

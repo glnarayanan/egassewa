@@ -1,0 +1,53 @@
+{{define "title"}}My Orders — GasMate{{end}}
+{{define "sidebar"}}
+  <a href="/user/book">Book Cylinder</a>
+  <a href="/user/orders" class="active">My Orders</a>
+  <a href="/user/accessories">Accessories</a>
+  <a href="/user/profile">Profile</a>
+  <a href="/user/new-connection">New Connection</a>
+  <a href="/user/change-location">Change Location</a>
+  <a href="/user/end-service">End Service</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">My Orders</h1>
+
+<h2 class="section-subtitle">Cylinder Orders</h2>
+{{if .Data.CylinderOrders}}
+<table class="table">
+  <thead><tr><th>Order #</th><th>Cylinder</th><th>Type</th><th>Ordered</th><th>Next Available</th><th>Status</th></tr></thead>
+  <tbody>
+  {{range .Data.CylinderOrders}}
+  <tr>
+    <td>#{{.OrderNumber}}</td>
+    <td>{{.CylinderUnit}} kg</td>
+    <td><span class="badge {{.CylinderType}}">{{.CylinderType}}</span></td>
+    <td>{{.OrderedAt.Format "2006-01-02"}}</td>
+    <td>{{.NextOrderDate.Format "2006-01-02"}}</td>
+    <td><span class="status-badge status-{{.Status}}">{{.Status}}</span></td>
+  </tr>
+  {{end}}
+  </tbody>
+</table>
+{{else}}
+<p class="text-muted">No cylinder orders yet. <a href="/user/book">Book now</a>.</p>
+{{end}}
+
+<h2 class="section-subtitle">Accessory Orders</h2>
+{{if .Data.AccessoryOrders}}
+<table class="table">
+  <thead><tr><th>Item</th><th>Qty</th><th>Ordered</th><th>Status</th></tr></thead>
+  <tbody>
+  {{range .Data.AccessoryOrders}}
+  <tr>
+    <td>{{.ItemName}}</td>
+    <td>{{.OrderCount}}</td>
+    <td>{{.OrderedAt.Format "2006-01-02"}}</td>
+    <td><span class="status-badge status-{{.Status}}">{{.Status}}</span></td>
+  </tr>
+  {{end}}
+  </tbody>
+</table>
+{{else}}
+<p class="text-muted">No accessory orders yet. <a href="/user/accessories">Browse accessories</a>.</p>
+{{end}}
+{{end}}

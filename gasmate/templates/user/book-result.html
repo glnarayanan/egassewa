@@ -1,0 +1,9 @@
+{{define "book-result.html"}}
+{{if .Success}}
+<div class="alert alert-success">
+  Order #{{.OrderNum}} placed successfully! Status: WAITING. You'll receive an email confirmation.
+</div>
+{{else if .Error}}
+<div class="alert alert-error">{{.Error}}</div>
+{{end}}
+{{end}}

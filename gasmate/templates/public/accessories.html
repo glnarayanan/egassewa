@@ -1,0 +1,14 @@
+{{define "title"}}Accessories — GasMate{{end}}
+{{define "content"}}
+<h1 class="page-title">Gas Accessories</h1>
+<div class="card-grid">
+  {{range .Data}}
+  <div class="card">
+    <h3>{{.Name}}</h3>
+    <p class="card-desc">{{.Description}}</p>
+    <p class="card-price">&#8377;{{printf "%.2f" .Price}}</p>
+    <a href="/user/accessories" class="btn btn-sm">Order</a>
+  </div>
+  {{end}}
+</div>
+{{end}}

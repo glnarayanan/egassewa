@@ -1,0 +1,30 @@
+{{define "dashboard"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{block "title" .}}GasMate{{end}}</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="/static/js/htmx.min.js"></script>
+</head>
+<body class="dashboard-body">
+<aside class="sidebar">
+  <a href="/" class="sidebar-logo">GasMate</a>
+  <nav class="sidebar-nav">
+    {{block "sidebar" .}}{{end}}
+  </nav>
+  <div class="sidebar-footer">
+    {{if .Session}}<span class="sidebar-user">{{.Session.Username}}</span>{{end}}
+    <form method="POST" action="/logout">
+      <button type="submit" class="btn-sidebar-logout">Logout</button>
+    </form>
+  </div>
+</aside>
+<div class="dashboard-content">
+  <div class="dashboard-main">
+    {{block "content" .}}{{end}}
+  </div>
+</div>
+</body>
+</html>
+{{end}}

@@ -1,0 +1,29 @@
+{{define "dealer-order-row.html"}}
+<tr id="order-{{.ID}}">
+  <td>#{{.OrderNumber}}</td>
+  <td>{{.Username}}</td>
+  <td>{{.CylinderUnit}} kg <span class="badge {{.CylinderType}}">{{.CylinderType}}</span></td>
+  <td>{{.OrderedAt.Format "2006-01-02"}}</td>
+  <td><span class="status-badge status-{{.Status}}">{{.Status}}</span></td>
+  <td class="action-cell">
+    {{if eq .Status "WAITING"}}
+    <button class="btn btn-sm btn-success"
+            hx-post="/dealer/orders/{{.ID}}/confirm"
+            hx-target="#order-{{.ID}}"
+            hx-swap="outerHTML">Confirm</button>
+    <button class="btn btn-sm btn-danger"
+            hx-post="/dealer/orders/{{.ID}}/cancel"
+            hx-target="#order-{{.ID}}"
+            hx-swap="outerHTML"
+            hx-confirm="Cancel this order?">Cancel</button>
+    {{else if eq .Status "CONFIRMED"}}
+    <button class="btn btn-sm btn-primary"
+            hx-post="/dealer/orders/{{.ID}}/dispatch"
+            hx-target="#order-{{.ID}}"
+            hx-swap="outerHTML">Dispatch</button>
+    {{else}}
+    <span class="text-muted">—</span>
+    {{end}}
+  </td>
+</tr>
+{{end}}

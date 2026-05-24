@@ -1,0 +1,32 @@
+{{define "title"}}Search Dealers — GasMate{{end}}
+{{define "content"}}
+<h1 class="page-title">Find a Dealer</h1>
+
+<div class="form-card">
+  <div class="form-row">
+    <label>State</label>
+    <select name="state_id"
+            hx-get="/cities"
+            hx-target="#city-select"
+            hx-include="[name='state_id']"
+            hx-trigger="change">
+      <option value="">Select state&#8230;</option>
+      {{range .Data.States}}
+      <option value="{{.ID}}">{{.Name}}</option>
+      {{end}}
+    </select>
+  </div>
+  <div class="form-row">
+    <label>City</label>
+    <select id="city-select" name="city_id"
+            hx-get="/search-dealers/results"
+            hx-target="#dealer-results"
+            hx-include="[name='state_id'],[name='city_id']"
+            hx-trigger="change">
+      <option value="">Select city&#8230;</option>
+    </select>
+  </div>
+</div>
+
+<div id="dealer-results"></div>
+{{end}}

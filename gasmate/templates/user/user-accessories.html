@@ -1,0 +1,30 @@
+{{define "title"}}Order Accessories — GasMate{{end}}
+{{define "sidebar"}}
+  <a href="/user/book">Book Cylinder</a>
+  <a href="/user/orders">My Orders</a>
+  <a href="/user/accessories" class="active">Accessories</a>
+  <a href="/user/profile">Profile</a>
+  <a href="/user/new-connection">New Connection</a>
+  <a href="/user/change-location">Change Location</a>
+  <a href="/user/end-service">End Service</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">Order Accessories</h1>
+<div id="acc-result"></div>
+<div class="card-grid">
+  {{range .Data}}
+  <div class="card">
+    <h3>{{.Name}}</h3>
+    <p class="card-desc">{{.Description}}</p>
+    <p class="card-price">&#8377;{{printf "%.2f" .Price}}</p>
+    <button class="btn btn-primary"
+            hx-post="/user/accessories"
+            hx-vals='{"accessory_id": "{{.ID}}"}'
+            hx-target="#acc-result"
+            hx-swap="innerHTML">
+      Order
+    </button>
+  </div>
+  {{end}}
+</div>
+{{end}}

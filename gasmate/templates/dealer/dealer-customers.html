@@ -1,0 +1,27 @@
+{{define "title"}}My Customers — GasMate{{end}}
+{{define "sidebar"}}
+  <a href="/dealer/orders">Cylinder Orders</a>
+  <a href="/dealer/accessories">Accessory Orders</a>
+  <a href="/dealer/customers" class="active">Customers</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">My Customers</h1>
+{{if .Data}}
+<table class="table">
+  <thead><tr><th>Name</th><th>Email</th><th>Connection #</th><th>City</th><th>Phone</th></tr></thead>
+  <tbody>
+  {{range .Data}}
+  <tr>
+    <td>{{.Username}}</td>
+    <td>{{.Email}}</td>
+    <td>{{.GasConnectionNumber}}</td>
+    <td>{{.CityName}}</td>
+    <td>{{.Phone}}</td>
+  </tr>
+  {{end}}
+  </tbody>
+</table>
+{{else}}
+<div class="empty-state"><p>No customers assigned yet.</p></div>
+{{end}}
+{{end}}

@@ -1,0 +1,51 @@
+{{define "title"}}Change Location — GasMate{{end}}
+{{define "sidebar"}}
+  <a href="/user/book">Book Cylinder</a>
+  <a href="/user/orders">My Orders</a>
+  <a href="/user/accessories">Accessories</a>
+  <a href="/user/profile">Profile</a>
+  <a href="/user/new-connection">New Connection</a>
+  <a href="/user/change-location" class="active">Change Location</a>
+  <a href="/user/end-service">End Service</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">Change Location / Dealer</h1>
+{{with .Data}}
+{{if .Success}}<div class="alert alert-success">Location change request submitted!</div>
+{{else}}
+{{if .Error}}<div class="alert alert-error">{{.Error}}</div>{{end}}
+<form method="POST" action="/user/change-location" class="form-card">
+  <div class="form-row">
+    <label>New State</label>
+    <select name="state_id"
+            hx-get="/cities"
+            hx-target="#city-select"
+            hx-include="[name='state_id']"
+            hx-trigger="change">
+      <option value="">Select state&#8230;</option>
+      {{range .States}}
+      <option value="{{.ID}}">{{.Name}}</option>
+      {{end}}
+    </select>
+  </div>
+  <div class="form-row">
+    <label>New City</label>
+    <select id="city-select" name="city_id"
+            hx-get="/dealers"
+            hx-target="#dealer-select"
+            hx-include="[name='city_id']"
+            hx-trigger="change">
+      <option value="">Select city&#8230;</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label>New Dealer</label>
+    <select id="dealer-select" name="dealer_id" required>
+      <option value="">Select dealer&#8230;</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit Request</button>
+</form>
+{{end}}
+{{end}}
+{{end}}

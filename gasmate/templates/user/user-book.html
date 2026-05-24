@@ -1,0 +1,31 @@
+{{define "title"}}Book Cylinder — GasMate{{end}}
+{{define "sidebar"}}
+  <a href="/user/book" class="active">Book Cylinder</a>
+  <a href="/user/orders">My Orders</a>
+  <a href="/user/accessories">Accessories</a>
+  <a href="/user/profile">Profile</a>
+  <a href="/user/new-connection">New Connection</a>
+  <a href="/user/change-location">Change Location</a>
+  <a href="/user/end-service">End Service</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">Book a Cylinder</h1>
+<div id="book-result"></div>
+<div class="card-grid">
+  {{range .Data}}
+  <div class="card">
+    <div class="card-badge {{.Type}}">{{.Type}}</div>
+    <h3>{{.UnitKg}} kg</h3>
+    <p class="card-desc">{{.Description}}</p>
+    <p class="card-price">&#8377;{{printf "%.2f" .Price}}</p>
+    <button class="btn btn-primary"
+            hx-post="/user/book"
+            hx-vals='{"cylinder_id": "{{.ID}}"}'
+            hx-target="#book-result"
+            hx-swap="innerHTML">
+      Book Now
+    </button>
+  </div>
+  {{end}}
+</div>
+{{end}}

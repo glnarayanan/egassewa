@@ -1,0 +1,24 @@
+{{define "dealer-acc-row.html"}}
+<tr id="acc-{{.ID}}">
+  <td>{{.ItemName}}</td>
+  <td>{{.Username}}</td>
+  <td>{{.OrderCount}}</td>
+  <td>{{.OrderedAt.Format "2006-01-02"}}</td>
+  <td><span class="status-badge status-{{.Status}}">{{.Status}}</span></td>
+  <td class="action-cell">
+    {{if eq .Status "PENDING"}}
+    <button class="btn btn-sm btn-success"
+            hx-post="/dealer/accessories/{{.ID}}/confirm"
+            hx-target="#acc-{{.ID}}"
+            hx-swap="outerHTML">Confirm</button>
+    {{else if eq .Status "CONFIRMED"}}
+    <button class="btn btn-sm btn-primary"
+            hx-post="/dealer/accessories/{{.ID}}/dispatch"
+            hx-target="#acc-{{.ID}}"
+            hx-swap="outerHTML">Dispatch</button>
+    {{else}}
+    <span class="text-muted">—</span>
+    {{end}}
+  </td>
+</tr>
+{{end}}

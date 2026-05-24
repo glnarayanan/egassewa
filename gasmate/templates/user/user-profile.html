@@ -1,0 +1,26 @@
+{{define "title"}}Profile — GasMate{{end}}
+{{define "sidebar"}}
+  <a href="/user/book">Book Cylinder</a>
+  <a href="/user/orders">My Orders</a>
+  <a href="/user/accessories">Accessories</a>
+  <a href="/user/profile" class="active">Profile</a>
+  <a href="/user/new-connection">New Connection</a>
+  <a href="/user/change-location">Change Location</a>
+  <a href="/user/end-service">End Service</a>
+{{end}}
+{{define "content"}}
+<h1 class="page-title">My Profile</h1>
+{{with .Data}}
+<div class="form-card">
+  <div class="info-row"><span>Username</span><strong>{{.Username}}</strong></div>
+  <div class="info-row"><span>Email</span><strong>{{.Email}}</strong></div>
+  <div class="info-row"><span>Gas Connection #</span><strong>{{.GasConnectionNumber}}</strong></div>
+  <div class="info-row"><span>City</span><strong>{{.CityName}}</strong></div>
+</div>
+<form method="POST" action="/user/profile" class="form-card">
+  <div class="form-row"><label>Address</label><textarea name="address">{{.Address}}</textarea></div>
+  <div class="form-row"><label>Phone</label><input name="phone" value="{{.Phone}}"></div>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+{{end}}
+{{end}}
